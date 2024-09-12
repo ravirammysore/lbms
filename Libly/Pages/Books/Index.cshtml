@@ -1,3 +1,13 @@
 ﻿@page
 
+@model Libly.Pages.Books.IndexModel
+
 <h1>Book list (coming soon...)</h1>
+
+<ul>
+    @foreach(var bookName in Model.bookNames)
+    {
+        <li>@bookName </li>
+    }
+
+</ul>
