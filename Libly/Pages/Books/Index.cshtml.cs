@@ -1,20 +1,102 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages; //external package (lib)
+using Microsoft.AspNetCore.Mvc.RazorPages; 
 
-namespace Libly.Pages.Books // namespace (folder)
+namespace Libly.Pages.Books 
 {
-    public class IndexModel : PageModel //class  //PascalCase
-    {
-        public string[] bookNames; //camel
-        public void OnGet() //function
+    public class IndexModel : PageModel 
+    {        
+        public List<Book> books; //Collections
+        public void OnGet() 
         {
-            //eventually i will pull this from database
-            bookNames = [
-              "The Great Gatsby",
-                "To Kill a Mockingbird",
-                "The God Father",
-                "Pride and Prejudice"
-          ];
+            //initializing the collection
+            //later we will ge this from the database
+            //obj initialization syntax
+            books = new List<Book>
+            {
+                new Book(1, "The Great Gatsby", "Fiction", new DateTime(1925, 4, 10)),
+                new Book(2, "To Kill a Mockingbird", "Fiction", new DateTime(1960, 7, 11)),
+                new Book(3, "1984", "Dystopian", new DateTime(1949, 6, 8)),
+                new Book(4, "Pride and Prejudice", "Romance", new DateTime(1813, 1, 28))
+            };
         }      
+    }
+
+    public class Book
+    {
+        private int id;
+        private string title;
+        private string category;
+        private DateTime dop;
+        private DateTime createdOn;
+        private DateTime? modifiedOn;
+
+        //a ctor is a special function
+        //has name, no return type, invoked auto
+        
+        //ensure that devs create an obj the way it has to be
+        public Book(int id, string title, string category, DateTime dop)
+        {
+            this.id = id;
+            this.title = title;
+            this.category = category;
+            this.dop = dop;
+            this.createdOn = DateTime.Now;
+        }
+
+        //getters and setters (accessors and mutators)
+        public int GetId()
+        {
+            return id;
+        }
+   
+        public void SetId(int value)
+        {
+            id = value;
+        }
+
+        public string GetTitle()
+        {
+            return title;
+        }
+
+        public void SetTitle(string value)
+        {
+            title = value;
+        }
+
+        public string GetCategory()
+        {
+            return category;
+        }
+
+        public void SetCategory(string value)
+        {
+            category = value;
+        }
+
+        public DateTime GetDop()
+        {
+            return dop;
+        }
+
+        public void SetDop(DateTime value)
+        {
+            dop = value;
+        }
+
+        public DateTime GetCreatedOn()
+        {
+            return createdOn;
+        }
+
+        public DateTime? GetModifiedOn()
+        {
+            return modifiedOn;
+        }
+
+        public void SetModifiedOn(DateTime? value)
+        {
+            modifiedOn = value;
+        }
     }
 }

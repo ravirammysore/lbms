@@ -1,12 +1,26 @@
 ﻿@page
-
 @model Libly.Pages.Books.IndexModel
 
-<h1>Book list (coming soon...)</h1>
+<h1>Book List</h1>
 
-<ul>
-    @for(int i=0; i < Model.bookNames.Length; i++)
-    {
-        <li> @(i+1)  @Model.bookNames[i] </li>
-    }
-</ul>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Date of Publication</th>            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.books)
+        {
+            <tr>
+                <td>@book.GetId()</td>
+                <td>@book.GetTitle()</td>
+                <td>@book.GetCategory()</td>
+                <td>@book.GetDop().ToShortDateString()</td>               
+            </tr>
+        }
+    </tbody>
+</table>
