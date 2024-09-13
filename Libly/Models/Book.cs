@@ -7,8 +7,13 @@
         public string Title { get; set; } //let us not have method just for getting and setting
         public string Category { get; set; } //CamelCase
         public DateTime Dop { get; set; }
-        public DateTime CreatedOn { get; private set; }
+        public DateTime CreatedOn { get; private set; } //01-01-1000
         public DateTime? ModifiedOn { get; set; }
+
+        public Book()
+        {
+            Console.WriteLine("");
+        }
 
         public Book(int id, string title, string category, DateTime dop)
         {
