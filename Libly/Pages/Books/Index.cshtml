@@ -9,7 +9,8 @@
             <th>ID</th>
             <th>Title</th>
             <th>Category</th>
-            <th>Date of Publication</th>            
+            <th>Date of Publication</th>  
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +20,11 @@
                 <td>@book.GetId()</td>
                 <td>@book.GetTitle()</td>
                 <td>@book.GetCategory()</td>
-                <td>@book.GetDop().ToShortDateString()</td>               
+                <td>@book.GetDop().ToShortDateString()</td>
+                <td>
+                    <a href="/Books/Edit?id=@book.GetId()">Edit</a> |
+                    <a href="/Books/Delete?id=@book.GetId()">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
