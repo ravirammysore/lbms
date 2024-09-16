@@ -60,6 +60,14 @@ namespace Libly.Data
             }
         }
 
-        //Delete
+        // Delete a book by ID
+        public static void Delete(int id)
+        {
+            var book = books.FirstOrDefault(b => b.Id == id);
+            if (book != null)
+            {
+                books.Remove(book);                
+            }
+        }
     }
 }

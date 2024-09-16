@@ -25,7 +25,11 @@ namespace Libly.Pages.Books
 
         public ActionResult OnPost() 
         {
-            //todo: we validate, if failed we return back the same page
+           
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
 
             BooksData.Update(BookToUpdate);
             
