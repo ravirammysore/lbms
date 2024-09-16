@@ -40,7 +40,25 @@ namespace Libly.Data
             return books;
         }
 
-        //Update
+        public static Book Get(int id)
+        {
+            //return books[id];   
+            return books.FirstOrDefault(book => book.Id == id);
+        }
+
+        public static void Update(Book updatedBook)
+        {
+            var book = books.FirstOrDefault(b => b.Id == updatedBook.Id);
+            if (book != null)
+            {
+                //We have auto-mappers
+                //nuget package manager (star ratings, no of download)
+                book.Title = updatedBook.Title;
+                book.Category = updatedBook.Category;
+                book.Dop = updatedBook.Dop;
+                book.ModifiedOn = DateTime.Now;
+            }
+        }
 
         //Delete
     }

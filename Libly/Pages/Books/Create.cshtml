@@ -1,5 +1,6 @@
 ﻿@page
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @model Libly.Pages.Books.CreateModel
 @{
 }
@@ -7,6 +8,8 @@
 <h1>Create New Book</h1>
 
 <form method="post">
+    <div asp-validation-summary="All"/> 
+    
     <div>
         <label asp-for="Book.Title"></label>
         <input asp-for="Book.Title" />

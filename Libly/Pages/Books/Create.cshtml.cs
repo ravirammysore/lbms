@@ -9,10 +9,19 @@ namespace Libly.Pages.Books
     {
         [BindProperty] //Devs had to manually process the body
         public Book Book { get; set; }      
+       
+        public void OnGet()
+        {
+
+        }
         //This is also invoked auto when the server receives a POST request from the client
         public ActionResult OnPost()
         {
-            //Validate the book later
+            //Validate the book 
+            if(!ModelState.IsValid)
+            {
+                return Page();
+            }
             BooksData.Create(Book); //upto the data-service 
 
             return RedirectToPage("./Index");
