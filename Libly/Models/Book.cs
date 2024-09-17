@@ -2,30 +2,27 @@
 
 namespace Libly.Models
 {
-    public class Book
+    public class Book : BaseModel
     {
-        //attributes ----> properties
-        public int Id { get; set; } //auto-implemented property
+        //attributes ----> properties        
         public string Title { get; set; } //let us not have method just for getting and setting
-        public string Category { get; set; } //CamelCase
+        public int CategoryId { get; set; }
+        public Category Category { get; set; } //Navigation Property 
 
         [DataType(DataType.Date)]
-        public DateTime Dop { get; set; }
-        public DateTime CreatedOn { get; private set; }
-        public DateTime? ModifiedOn { get; set; } //nullables (do not know it)
+        public DateTime Dop { get; set; }        
 
-        public Book()
+        public Book() : base()
         {
-            CreatedOn = DateTime.Now;
+          //Have to be excuted 
         }
 
-        public Book(int id, string title, string category, DateTime dop)
+        public Book(int id, string title, int categoryId, DateTime dop): this()
         {
             Id = id;
             Title = title;
-            Category = category;
-            Dop = dop;
-            CreatedOn = DateTime.Now;
+            CategoryId = categoryId;
+            Dop = dop;            
         }
     }
 }
