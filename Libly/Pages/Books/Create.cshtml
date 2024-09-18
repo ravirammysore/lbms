@@ -7,7 +7,7 @@
 <h1>Create New Book</h1>
 
 <form method="post">
-    <div asp-validation-summary="All"/> 
+    <div asp-validation-summary="ModelOnly"/> 
     
     <div>
         <label asp-for="Book.Title"></label>
@@ -19,9 +19,14 @@
         <input asp-for="Book.Dop" type="date" />
     </div>
 
-    <div>
+    @* <div>
         <label asp-for="Book.Category"></label>
         <input asp-for="Book.Category" />
+    </div> *@
+
+    <div>
+        <label asp-for="Book.CategoryId">Category</label>
+        <select asp-for="Book.CategoryId" asp-items="Model.CategoryOptions"></select>
     </div>
 
     <div>
