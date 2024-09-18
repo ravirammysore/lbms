@@ -6,21 +6,26 @@
 
 <form method="post">
     <!-- Hidden field for the Book ID -->
-    <input type="hidden" asp-for="BookToUpdate.Id" />
+    <input type="hidden" asp-for="BookVM.Id" />
 
     <div>
-        <label asp-for="BookToUpdate.Title"></label>
-        <input asp-for="BookToUpdate.Title" />
+        <label asp-for="BookVM.Title"></label>
+        <input asp-for="BookVM.Title" />
     </div>
 
     <div>
-        <label asp-for="BookToUpdate.Dop"></label>
-        <input asp-for="BookToUpdate.Dop" type="date" />
+        <label asp-for="BookVM.Dop"></label>
+        <input asp-for="BookVM.Dop" type="date" />
     </div>
 
+    @* <div>
+        <label asp-for="BookVM.Category"></label>
+        <input asp-for="BookVM.Category" />
+    </div> *@
+
     <div>
-        <label asp-for="BookToUpdate.Category"></label>
-        <input asp-for="BookToUpdate.Category" />
+        <label asp-for="BookVM.CategoryId">Category</label>
+        <select asp-for="BookVM.CategoryId" asp-items="Model.CategoryOptions"></select>
     </div>
 
     <div>

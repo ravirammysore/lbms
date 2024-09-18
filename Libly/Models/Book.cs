@@ -12,7 +12,7 @@ namespace Libly.Models
 
         // Navigation property to Category
         public int CategoryId { get; set; }
-        public Category? Category { get; set; }
+        public Category Category { get; set; }
 
         // Parameterless constructor
         public Book() : base()

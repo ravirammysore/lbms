@@ -10,13 +10,13 @@
     <div asp-validation-summary="ModelOnly"/> 
     
     <div>
-        <label asp-for="Book.Title"></label>
-        <input asp-for="Book.Title" />
+        <label asp-for="BookVM.Title"></label>
+        <input asp-for="BookVM.Title" />
     </div>
 
     <div>
-        <label asp-for="Book.Dop"></label>
-        <input asp-for="Book.Dop" type="date" />
+        <label asp-for="BookVM.Dop"></label>
+        <input asp-for="BookVM.Dop" type="date" />
     </div>
 
     @* <div>
@@ -25,8 +25,8 @@
     </div> *@
 
     <div>
-        <label asp-for="Book.CategoryId">Category</label>
-        <select asp-for="Book.CategoryId" asp-items="Model.CategoryOptions"></select>
+        <label asp-for="BookVM.CategoryId">Category</label>
+        <select asp-for="BookVM.CategoryId" asp-items="Model.CategoryOptions"></select>
     </div>
 
     <div>
