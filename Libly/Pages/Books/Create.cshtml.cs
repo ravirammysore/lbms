@@ -39,7 +39,10 @@ namespace Libly.Pages.Books
                 CategoryId = BookVM.CategoryId,
             };
 
-            BooksData.Create(Book); //upto the data-service 
+            //BooksData.Create(Book); //upto the data-service 
+            var context = new BooksContext();
+            context.Books.Add(Book);    // we have only added the new book to in-memory DbSet
+            context.SaveChanges();
 
             return RedirectToPage("./Index");
         }
