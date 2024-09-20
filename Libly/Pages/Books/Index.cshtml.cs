@@ -15,14 +15,14 @@ namespace Libly.Pages.Books
 
             var context = new BooksContext();
 
+            //In EF Core, the navigation property (related entity) is NOT loaded untill you ask for it!
+            //In EF classic this would still work out of the box!
+            //books = context.Books.ToList();
+
             //Explicit loading (we specify which related entities we need)
             books = context.Books
                 .Include(b=>b.Category)                                
-                .ToList();
-
-            //The navigation property (related entity) is NOT loaded untill you ask for it!
-            //In EF classic this would still work out of the box!
-            books = context.Books.ToList();
+                .ToList();            
         }      
     }    
 }
