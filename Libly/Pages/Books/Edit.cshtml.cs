@@ -15,7 +15,12 @@ namespace Libly.Pages.Books
 
         public ActionResult OnGet(int id)
         {
-            Book book = BooksData.Get(id);
+            //Book book = BooksData.Get(id);
+            
+            var context = new BooksContext();
+            Book book = context.Books.Find(id);
+
+            //Book book = context.Books.FirstOrDefault(b=>b.Id == id);
 
             if (book == null)
             {
@@ -45,7 +50,11 @@ namespace Libly.Pages.Books
             }
 
             // Load the book from the in-memory collection
-            Book bookToUpdate = BooksData.Get(BookVM.Id);
+            //Book bookToUpdate = BooksData.Get(BookVM.Id);
+            var context = new BooksContext();
+
+            //bookToUpdate is now being tracked by EF
+            Book bookToUpdate = context.Books.Find(BookVM.Id);
 
             if (bookToUpdate == null)
             {
@@ -59,7 +68,11 @@ namespace Libly.Pages.Books
 
             bookToUpdate.ModifiedOn = DateTime.Now;
 
-            BooksData.Update(bookToUpdate);
+            //BooksData.Update(bookToUpdate);
+
+            //All changes to bookToUpdate will be saved to the db by the EF
+            //which means EF has to figure out the specific update SQL queries
+            context.SaveChanges();
 
             return RedirectToPage("./Index");
         }
