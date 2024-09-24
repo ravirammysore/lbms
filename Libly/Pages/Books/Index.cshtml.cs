@@ -7,20 +7,22 @@ using Microsoft.EntityFrameworkCore;
 namespace Libly.Pages.Books 
 {
     public class IndexModel : PageModel 
-    {        
+    {
+        private readonly BooksContext _context;
+
         public List<Book> books; //Collections
-        public void OnGet() 
+        public IndexModel(BooksContext context)
         {
-            //books = BooksData.GetAll(); //fetch this stuff froma real db or a service later!
-
-            var context = new BooksContext();
-
+            _context = context;
+        }        
+        public void OnGet() 
+        {            
             //In EF Core, the navigation property (related entity) is NOT loaded untill you ask for it!
             //In EF classic this would still work out of the box!
-            //books = context.Books.ToList();
+            //books = _context.Books.ToList();
 
             //Explicit loading (we specify which related entities we need)
-            books = context.Books
+            books = _context.Books
                 .Include(b=>b.Category)                                
                 .ToList();            
         }      

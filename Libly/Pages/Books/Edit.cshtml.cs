@@ -9,19 +9,19 @@ namespace Libly.Pages.Books
 {
     public class EditModel : PageModel  //Inheritance (reuse)
     {
+        private readonly BooksContext _context;
+
         [BindProperty]
         public BookViewModel BookVM { get; set; } //property
         public List<SelectListItem> CategoryOptions { get; set; }
-
-        public ActionResult OnGet(int id)
+        public EditModel(BooksContext context)
         {
-            //Book book = BooksData.Get(id);
+            _context = context;
+        }        
+        public ActionResult OnGet(int id)
+        {            
+            Book book = _context.Books.Find(id);
             
-            var context = new BooksContext();
-            Book book = context.Books.Find(id);
-
-            //Book book = context.Books.FirstOrDefault(b=>b.Id == id);
-
             if (book == null)
             {
                 return NotFound(); //404 error (standard HTML)
@@ -47,14 +47,10 @@ namespace Libly.Pages.Books
             {
                 PopulateDropDown();
                 return Page();
-            }
-
-            // Load the book from the in-memory collection
-            //Book bookToUpdate = BooksData.Get(BookVM.Id);
-            var context = new BooksContext();
+            }            
 
             //bookToUpdate is now being tracked by EF
-            Book bookToUpdate = context.Books.Find(BookVM.Id);
+            Book bookToUpdate = _context.Books.Find(BookVM.Id);
 
             if (bookToUpdate == null)
             {
@@ -72,17 +68,15 @@ namespace Libly.Pages.Books
 
             //All changes to bookToUpdate will be saved to the db by the EF
             //which means EF has to figure out the specific update SQL queries
-            context.SaveChanges();
+            _context.SaveChanges();
 
             return RedirectToPage("./Index");
         }
 
         private void PopulateDropDown()
-        {
-            var context = new BooksContext(); 
-            
+        {                        
             //functional programing
-            CategoryOptions = context
+            CategoryOptions = _context
                                 .Categories
                                 .Select(c => new SelectListItem
                                     {

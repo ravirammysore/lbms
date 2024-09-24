@@ -8,15 +8,21 @@ namespace Libly.Pages.Books
 {
     public class DeleteModel : PageModel
     {
+        private readonly BooksContext _context;
+
         [BindProperty]
         public Book Book { get; set; }
+        
+        public DeleteModel(BooksContext context)
+        {
+            _context = context;
+        }
         public ActionResult OnGet(int id)
         {
             // Retrieve the book to be deleted
             //Book = BooksData.Get(id);
-            
-            var context = new BooksContext();
-            Book = context.Books
+                        
+            Book = _context.Books
                 .Include(b=>b.Category)
                 .SingleOrDefault(b=>b.Id == id);    
 
@@ -30,15 +36,11 @@ namespace Libly.Pages.Books
 
         public ActionResult OnPost(int id)
         {
-            //ask the service code to delete this
-            //BooksData.Delete(id);   
-
-            var context = new BooksContext();
             //Removes it from DbSet only
-            context.Books.Remove(Book);
+            _context.Books.Remove(Book);
             
             //never call this in a loop
-            context.SaveChanges();
+            _context.SaveChanges();
 
             //return back to index
             return RedirectToPage("./Index");    
