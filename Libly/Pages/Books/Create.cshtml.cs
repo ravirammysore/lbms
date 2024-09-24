@@ -49,21 +49,19 @@ namespace Libly.Pages.Books
 
         private void PopulateDropdown()
         {
-            //Object Initialization Syntax
-            CategoryOptions = new List<SelectListItem>
-            {
-                new SelectListItem
-                {
-                    Value = "1",
-                    Text = "Fiction"
-                },
+            var context = new BooksContext();
+            var selectListItems = new List<SelectListItem>();
 
-                new SelectListItem
+            foreach(var category in context.Categories)
+            {
+                var selectListItem = new SelectListItem()
                 {
-                    Value = "2",
-                    Text = "Science Fiction"
-                }
-            };
+                    Value = category.Id.ToString(),
+                    Text = category.Name
+                };
+                selectListItems.Add(selectListItem);    
+            }
+            CategoryOptions = selectListItems.OrderBy(i=>i.Text).ToList();
         }
     }
 }

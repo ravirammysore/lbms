@@ -43,10 +43,10 @@ namespace Libly.Pages.Books
 
         public ActionResult OnPost()
         {
-
             if (!ModelState.IsValid)
             {
-                return PopulateDropDown();
+                PopulateDropDown();
+                return Page();
             }
 
             // Load the book from the in-memory collection
@@ -77,15 +77,20 @@ namespace Libly.Pages.Books
             return RedirectToPage("./Index");
         }
 
-        private ActionResult PopulateDropDown()
+        private void PopulateDropDown()
         {
-            // Reload the category options if validation fails
-            CategoryOptions = new List<SelectListItem>
-                {
-                    new SelectListItem { Value = "1", Text = "Fiction" },
-                    new SelectListItem { Value = "2", Text = "Science Fiction" }
-                };
-            return Page();
+            var context = new BooksContext(); 
+            
+            //functional programing
+            CategoryOptions = context
+                .Categories
+                .Select(c => new SelectListItem
+                    {
+                        Value = c.Id.ToString(),
+                        Text = c.Name
+                    })
+                .OrderBy(c => c.Text)  
+                .ToList();
         }
     }
 }
