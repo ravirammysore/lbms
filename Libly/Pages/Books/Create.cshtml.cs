@@ -9,8 +9,17 @@ namespace Libly.Pages.Books
 {
     public class CreateModel : PageModel
     {
+        private readonly BooksContext _context;
+
         [BindProperty] //Devs had to manually process the body
         public BookViewModel BookVM { get; set; }
+
+        //We have a constructor which will be supplied a BooksContext object
+        //in run time by the asp.net core framework (using the DI container)
+        public CreateModel(BooksContext context)
+        {
+            _context = context;
+        }
 
         public List<SelectListItem> CategoryOptions { get; set; }
 
@@ -39,20 +48,19 @@ namespace Libly.Pages.Books
                 CategoryId = BookVM.CategoryId,
             };
 
-            //BooksData.Create(Book); //upto the data-service 
-            var context = new BooksContext();
-            context.Books.Add(Book);    // we have only added the new book to in-memory DbSet
-            context.SaveChanges();
+          
+            //Now, we are using the injected context
+            _context.Books.Add(Book);    // we have only added the new book to in-memory DbSet
+            _context.SaveChanges();
 
             return RedirectToPage("./Index");
         }
 
         private void PopulateDropdown()
-        {
-            var context = new BooksContext();
+        {            
             var selectListItems = new List<SelectListItem>();
 
-            foreach(var category in context.Categories)
+            foreach(var category in _context.Categories)
             {
                 var selectListItem = new SelectListItem()
                 {

@@ -1,7 +1,16 @@
+using Libly.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //adds Razor Pages services to the DI container.
 builder.Services.AddRazorPages();
+
+// Register the BooksContext with DI container
+// Lamdas: you are passing a (anonymous) function to another function
+builder.Services.AddDbContext<BooksContext>(options =>
+                               options.UseSqlServer(builder.Configuration.GetConnectionString("LibraryDB")));
+
 
 var app = builder.Build();
 

@@ -83,14 +83,14 @@ namespace Libly.Pages.Books
             
             //functional programing
             CategoryOptions = context
-                .Categories
-                .Select(c => new SelectListItem
-                    {
-                        Value = c.Id.ToString(),
-                        Text = c.Name
-                    })
-                .OrderBy(c => c.Text)  
-                .ToList();
+                                .Categories
+                                .Select(c => new SelectListItem
+                                    {
+                                        Value = c.Id.ToString(),
+                                        Text = c.Name
+                                    })
+                                .OrderBy(c => c.Text)  
+                                .ToList();
         }
     }
 }
