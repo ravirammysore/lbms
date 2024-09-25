@@ -13,6 +13,7 @@ namespace Libly.Pages.Books
         public List<Book> books; //Collections
         public IndexModel(BooksContext context)
         {
+            throw new Exception("Major error!");
             _context = context;
         }        
         public void OnGet() 

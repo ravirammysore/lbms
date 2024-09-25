@@ -17,6 +17,14 @@ builder.Services.AddDbContext<BooksContext>(
 
 var app = builder.Build();
 
+if (app.Environment.IsDevelopment())
+{
+    //i will show the full error message
+}
+else
+{
+    app.UseExceptionHandler("/Error");
+}
 //config that u do here (settings) are called Middleware
 //app.MapGet("/", () => "Welcome to Libly!");
 
