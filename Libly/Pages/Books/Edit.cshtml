@@ -5,6 +5,8 @@
 <h1>Edit Book</h1>
 
 <form method="post">
+    <div asp-validation-summary="All"></div>
+    
     <!-- Hidden field for the Book ID -->
     <input type="hidden" asp-for="BookVM.Id" />
 
