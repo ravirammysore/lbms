@@ -4,6 +4,7 @@ using Libly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Libly.Pages.Books
 {
@@ -66,9 +67,28 @@ namespace Libly.Pages.Books
 
             //BooksData.Update(bookToUpdate);
 
-            //All changes to bookToUpdate will be saved to the db by the EF
-            //which means EF has to figure out the specific update SQL queries
-            _context.SaveChanges();
+            try
+            {
+                //All changes to bookToUpdate will be saved to the db by the EF
+                //which means EF has to figure out the specific update SQL queries                
+                _context.SaveChanges();
+            }          
+
+            catch (DbUpdateConcurrencyException)
+            {
+                //same entry being updated by atleast two people
+            }
+           
+            catch (DbUpdateException)
+            {
+                //violated the database constraints
+            }
+            catch (Exception)
+            {
+                //Any other error not caught before
+                ModelState.AddModelError("Save Error", "Something din go as expected, a ticket has been raised");
+                PopulateDropDown();
+            }
 
             return RedirectToPage("./Index");
         }

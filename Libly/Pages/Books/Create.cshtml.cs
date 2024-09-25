@@ -48,10 +48,21 @@ namespace Libly.Pages.Books
                 CategoryId = BookVM.CategoryId,
             };
 
-          
-            //Now, we are using the injected context
-            _context.Books.Add(Book);    // we have only added the new book to in-memory DbSet
-            _context.SaveChanges();
+
+            try
+            {
+                //Now, we are using the injected context
+                // we have only added the new book to in-memory DbSet
+                _context.Books.Add(Book);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                //log this to your db and perhaps get a ticket number
+                ModelState.AddModelError("Save Error","Something din go as expected, a ticket has been raised");
+                PopulateDropdown();
+                return Page();  
+            }
 
             return RedirectToPage("./Index");
         }
