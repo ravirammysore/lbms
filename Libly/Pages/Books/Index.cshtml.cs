@@ -10,7 +10,7 @@ namespace Libly.Pages.Books
     {
         private readonly BooksContext _context;
 
-        public List<Book> books; //Collections
+        public List<Book> Books; //Collections
         public IndexModel(BooksContext context)
         {            
             _context = context;
@@ -22,7 +22,7 @@ namespace Libly.Pages.Books
             //books = _context.Books.ToList();
 
             //Explicit loading (we specify which related entities we need)
-            books = _context.Books
+            Books = _context.Books
                 .Include(b=>b.Category)                                
                 .ToList();            
         }      

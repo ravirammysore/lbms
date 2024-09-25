@@ -3,26 +3,22 @@
 
 <h1>Book List</h1>
 
-<a href="/Books/Create">Add new</a> |
-
-<table border="1">
+<table class="table table-striped">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Title</th>
             <th>Category</th>
-            <th>Date of Publication</th>  
+            <th>Date of Publication</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var book in Model.books)
+        @foreach (var book in Model.Books)
         {
             <tr>
-                <td>@book.Id</td>
                 <td>@book.Title</td>
                 <td>@book.Category.Name</td>
-                <td>@Html.DisplayFor(modelItem => book.Dop)</td>
+                <td> @Html.DisplayFor(modelItem => book.Dop)</td>
                 <td>
                     <a asp-page="Edit" asp-route-id="@book.Id">Edit</a>
                     <a asp-page="Delete" asp-route-id="@book.Id">Delete</a>
@@ -31,3 +27,6 @@
         }
     </tbody>
 </table>
+<div>
+    <a asp-page="Create">Add New</a>
+</div>
