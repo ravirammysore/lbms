@@ -27,5 +27,11 @@ namespace Libly.Core.Models
             Dop = dop;
             CategoryId = categoryId;
         }
+
+        public bool IsNew()
+        {
+           //ternary operator and i have also used a compound expression
+            return (DateTime.Now - Dop).TotalDays <= 60 ? true : false;  
+        }
     }
 }
