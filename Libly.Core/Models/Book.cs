@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Libly.Models
+namespace Libly.Core.Models
 {
     public class Book : BaseModel
     {

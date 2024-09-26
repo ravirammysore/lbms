@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Libly.ViewModels
+namespace Libly.Core.ViewModels
 {
     public class BookViewModel
     {

@@ -1,6 +1,6 @@
-using Libly.Data;
-using Libly.Models;
-using Libly.ViewModels;
+using Libly.Core.Data;
+using Libly.Core.Models;
+using Libly.Core.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;

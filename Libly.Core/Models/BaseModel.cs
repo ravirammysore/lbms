@@ -1,4 +1,4 @@
-﻿namespace Libly.Models
+﻿namespace Libly.Core.Models
 {
     public abstract class BaseModel
     {
