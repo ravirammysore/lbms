@@ -1,4 +1,6 @@
+using Libly.Core.ApiClients;
 using Libly.Core.Models;
+using Moq;
 
 namespace Libly.Tests
 {
@@ -25,6 +27,29 @@ namespace Libly.Tests
 
             //Assert            
             Assert.Equal(expectedResult, result);             
-        }       
+        }
+
+        [Fact]
+        public void CalculateRent_Returns_CorrectRent()
+        {
+            //Arrange
+            var book = new Book()
+            {
+                Title = "Some title",
+                Dop = DateTime.Parse("2001-10-01")
+            };
+            var mockApiClient = new Mock<IGetRating>();
+            
+            //We are pre-programing this mock object to behave the way we want
+            mockApiClient.Setup(client => client.GetRating(book.Title)).Returns(2.5);
+            
+            //Act
+            // If i get a rating of 2.5 of 5 stars
+            var actualrent = book.CalculateRent(mockApiClient.Object);
+
+            //Assert
+            // 2.0 * 1.0 * (1 + (2.5/5.0)) = 3.0
+            Assert.Equal(3.0, actualrent);
+        }
     }
 }
