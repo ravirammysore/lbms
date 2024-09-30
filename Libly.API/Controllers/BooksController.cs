@@ -1,5 +1,7 @@
-﻿using Libly.API.Models;
+﻿using Libly.Core.Data;
+using Libly.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Libly.API.Controllers;
 
@@ -7,17 +9,20 @@ namespace Libly.API.Controllers;
 [Route("api/[controller]")]  // /api/books   //we expect this to happen by convention
 public class BooksController : ControllerBase
 {
+    private readonly BooksContext _context;
+    public BooksController(BooksContext context)
+    {
+            _context = context; 
+    }
     //GETALL
     [HttpGet]
     public ActionResult<IEnumerable<Book>> Get()
     {
-        var books = new List<Book>
-        {
-            new Book { Id = 1, Title = "The Great Gatsby", Dop = new DateTime(1925, 4, 10) },
-            new Book { Id = 2, Title = "To Kill a Mockingbird", Dop = new DateTime(1960, 7, 11) },
-            new Book { Id = 3, Title = "1984", Dop = new DateTime(1949, 6, 8) }
-        };
-        return books;
+       //the convertion of a c# collection of objects to JSON response is acvtly handled
+        //by a built-in serializer in .NET
+        return _context.Books
+            //.Include(b=>b.Category)
+            .ToList();  
     }
 
     //GET/5
