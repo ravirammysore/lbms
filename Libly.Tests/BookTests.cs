@@ -1,6 +1,7 @@
 using Libly.Core.ApiClients;
 using Libly.Core.Models;
 using Moq;
+using FluentAssertions;
 
 namespace Libly.Tests
 {
@@ -29,27 +30,28 @@ namespace Libly.Tests
             Assert.Equal(expectedResult, result);             
         }
 
-        [Fact]
-        public void CalculateRent_Returns_CorrectRent()
-        {
-            //Arrange
-            var book = new Book()
+        [Theory]
+        [InlineData("2001-10-01", 2.5, 3.0)]
+        [InlineData("1987-05-25", 5.0, 4.0)]
+        [InlineData("2024-07-15", 1.0, 3.6)]
+        [InlineData("2024-05-21", 4.0, 5.4)]
+        public void CalculateRent_Returns_CorrectRent(string dopString, double mockRating, double expectedRent)
+        {            
+            var bookCUT = new Book()
             {
-                Title = "Some title",
-                Dop = DateTime.Parse("2001-10-01")
+                Title = It.IsAny<string>(),
+                Dop = DateTime.Parse(dopString)
             };
             var mockApiClient = new Mock<IGetRating>();
-            
-            //We are pre-programing this mock object to behave the way we want
-            mockApiClient.Setup(client => client.GetRating(book.Title)).Returns(2.5);
-            
-            //Act
-            // If i get a rating of 2.5 of 5 stars
-            var actualrent = book.CalculateRent(mockApiClient.Object);
-
-            //Assert
-            // 2.0 * 1.0 * (1 + (2.5/5.0)) = 3.0
-            Assert.Equal(3.0, actualrent);
+                        
+            mockApiClient
+                .Setup(client => client.GetRating(bookCUT.Title))
+                .Returns(mockRating);
+                                            
+            bookCUT.CalculateRent(mockApiClient.Object)
+                .Should()
+                .BeApproximately(expectedRent, 0.1);
+           
         }
     }
 }
